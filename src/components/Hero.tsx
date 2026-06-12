@@ -110,8 +110,8 @@ export default function Hero({ lang }: { lang: "en" | "it" }) {
             initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.25, ease }}
             style={{
-              width: 240, height: 240, borderRadius: 28, flexShrink: 0,
-              overflow: "hidden", boxShadow: "var(--card-shadow)",
+              width: 260, height: 260, borderRadius: 0, flexShrink: 0,
+              overflow: "hidden",
             }}
           >
             <img

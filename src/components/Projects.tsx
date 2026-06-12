@@ -4,64 +4,63 @@ import { useRef } from "react";
 import { projects } from "@/data/projects";
 import GanttMockup from "./GanttMockup";
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export default function Projects({ lang }: { lang: "en" | "it" }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="projects" className="py-8 px-4" ref={ref}>
-      <div className="w-full max-w-3xl mx-auto">
+    <section id="projects" style={{ padding: "0 24px 24px" }} ref={ref}>
+      <div style={{ maxWidth: 768, margin: "0 auto" }}>
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-xs font-medium tracking-widest uppercase mb-4 pl-1"
-          style={{ color: "var(--text-faint)" }}
+          transition={{ duration: 0.5, ease }}
+          style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 12, paddingLeft: 2 }}
         >
           {lang === "en" ? "Selected projects" : "Progetti selezionati"}
         </motion.p>
 
-        <div className="flex flex-col gap-4">
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {projects.map((project, i) => (
             <motion.div
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="glass overflow-hidden"
+              transition={{ duration: 0.6, delay: i * 0.1, ease }}
+              className="card"
+              style={{ overflow: "hidden" }}
             >
-              <div className="p-5">
+              <div style={{ padding: "16px 16px 0" }}>
                 <GanttMockup />
               </div>
-
-              <div className="px-5 pb-5 flex items-start justify-between gap-4">
+              <div style={{ padding: "16px 20px 20px", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16 }}>
                 <div>
-                  <h3 className="text-sm font-medium mb-1" style={{ color: "var(--text-primary)" }}>
+                  <h3 style={{ fontSize: 14, fontWeight: 600, color: "var(--text-primary)", marginBottom: 4 }}>
                     {lang === "en" ? project.title : project.titleIt}
                   </h3>
-                  <p className="text-xs mb-3" style={{ color: "var(--text-muted)" }}>
+                  <p style={{ fontSize: 12, color: "var(--text-muted)", marginBottom: 10 }}>
                     {lang === "en" ? project.industry : project.industryIt}
                     {" · "}
                     {lang === "en" ? "Hybrid production planning" : "Pianificazione produzione ibrida"}
                   </p>
-                  <p className="text-xs leading-relaxed mb-3 max-w-lg" style={{ color: "var(--text-secondary)" }}>
+                  <p style={{ fontSize: 12, lineHeight: 1.7, color: "var(--text-secondary)", maxWidth: 520, marginBottom: 12 }}>
                     {lang === "en" ? project.description : project.descriptionIt}
                   </p>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
                     {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-xs px-2 py-0.5 rounded"
-                        style={{ color: "var(--teal-dark)", background: "var(--teal-bg)", border: "0.5px solid var(--teal-border)" }}
-                      >
+                      <span key={tag} style={{
+                        fontSize: 11, padding: "3px 9px", borderRadius: 6,
+                        color: "var(--teal-dark)", background: "var(--teal-bg)",
+                        border: "0.5px solid var(--teal-border)",
+                      }}>
                         {tag}
                       </span>
                     ))}
                   </div>
                 </div>
-                <span className="text-xs flex-shrink-0 mt-1" style={{ color: "var(--text-faint)" }}>
-                  {project.year}
-                </span>
+                <span style={{ fontSize: 12, color: "var(--text-faint)", flexShrink: 0, marginTop: 2 }}>{project.year}</span>
               </div>
             </motion.div>
           ))}

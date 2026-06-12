@@ -2,6 +2,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 const tools = [
   { name: "Excel Advanced", cat: "data" },
   { name: "Power BI", cat: "data" },
@@ -28,36 +30,39 @@ const catColor: Record<string, string> = {
 
 export default function Stack({ lang }: { lang: "en" | "it" }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="stack" className="py-8 px-4" ref={ref}>
-      <div className="w-full max-w-3xl mx-auto">
+    <section id="stack" style={{ padding: "0 24px 24px" }} ref={ref}>
+      <div style={{ maxWidth: 768, margin: "0 auto" }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="glass p-6"
+          transition={{ duration: 0.5, ease }}
+          className="card"
+          style={{ padding: 24 }}
         >
-          <p className="text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "var(--text-faint)" }}>
+          <p style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 18 }}>
             {lang === "en" ? "Tools & stack" : "Strumenti & stack"}
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {tools.map((tool, i) => (
               <motion.span
                 key={tool.name}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.3, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] }}
-                className="flex items-center gap-1.5 text-xs px-3 py-2 rounded-lg"
-                style={{
-                  color: "var(--text-secondary)",
-                  background: "rgba(255,255,255,0.9)",
-                  border: "0.5px solid rgba(0,0,0,0.06)",
-                }}
+                transition={{ duration: 0.3, delay: i * 0.04, ease }}
                 whileHover={{ y: -1, transition: { duration: 0.15 } }}
+                style={{
+                  display: "flex", alignItems: "center", gap: 6,
+                  fontSize: 12, padding: "6px 12px", borderRadius: 8,
+                  color: "var(--text-secondary)",
+                  background: "rgba(255,255,255,0.95)",
+                  border: "0.5px solid rgba(0,0,0,0.07)",
+                  cursor: "default",
+                }}
               >
-                <span className="w-1.5 h-1.5 rounded-full" style={{ background: catColor[tool.cat], opacity: 0.7 }} />
+                <span style={{ width: 6, height: 6, borderRadius: "50%", background: catColor[tool.cat], display: "block" }} />
                 {tool.name}
               </motion.span>
             ))}

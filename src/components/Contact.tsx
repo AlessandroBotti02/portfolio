@@ -2,62 +2,66 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export default function Contact({ lang }: { lang: "en" | "it" }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
-  const content = {
+  const t = {
     en: {
       label: "Contact",
       title: "Let's talk.",
       sub: "If you're working on something that involves data, processes, or custom tools — I'm happy to have a conversation.",
-      email: "Email",
-      linkedin: "LinkedIn",
     },
     it: {
       label: "Contatti",
       title: "Parliamo.",
       sub: "Se stai lavorando su qualcosa che riguarda dati, processi o strumenti personalizzati — sono disponibile a una conversazione.",
-      email: "Email",
-      linkedin: "LinkedIn",
     },
-  };
-  const c = content[lang];
+  }[lang];
 
   return (
-    <section id="contact" className="py-8 px-4 pb-24" ref={ref}>
-      <div className="w-full max-w-3xl mx-auto">
+    <section id="contact" style={{ padding: "0 24px 80px" }} ref={ref}>
+      <div style={{ maxWidth: 768, margin: "0 auto" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="glass p-8"
+          transition={{ duration: 0.6, ease }}
+          className="card"
+          style={{ padding: 36 }}
         >
-          <p className="text-xs font-medium tracking-widest uppercase mb-4" style={{ color: "var(--text-faint)" }}>
-            {c.label}
+          <p style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-faint)", marginBottom: 14 }}>
+            {t.label}
           </p>
-          <h2 className="text-4xl font-medium tracking-tight mb-3" style={{ color: "var(--text-primary)" }}>
-            {c.title}
+          <h2 style={{ fontSize: 42, fontWeight: 500, letterSpacing: "-0.025em", color: "var(--text-primary)", marginBottom: 12 }}>
+            {t.title}
           </h2>
-          <p className="text-sm leading-relaxed mb-8 max-w-md" style={{ color: "var(--text-secondary)" }}>
-            {c.sub}
+          <p style={{ fontSize: 14, lineHeight: 1.7, color: "var(--text-secondary)", maxWidth: 420, marginBottom: 28 }}>
+            {t.sub}
           </p>
-          <div className="flex flex-wrap gap-3">
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
             <a
               href="mailto:alessandro.botti@inema.bo.it"
-              className="flex items-center gap-2 text-sm font-medium px-5 py-2.5 rounded-xl no-underline transition-opacity hover:opacity-80"
-              style={{ background: "var(--teal)", color: "#fff" }}
+              style={{
+                fontSize: 13, fontWeight: 500, padding: "10px 22px", borderRadius: 12,
+                background: "var(--teal)", color: "#fff", textDecoration: "none",
+              }}
             >
-              {c.email} ↗
+              Email ↗
             </a>
             <a
               href="https://linkedin.com/in/alessandro-botti-698b73159"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm px-5 py-2.5 rounded-xl no-underline transition-opacity hover:opacity-80"
-              style={{ color: "var(--text-secondary)", background: "rgba(255,255,255,0.7)", border: "0.5px solid var(--border)" }}
+              style={{
+                fontSize: 13, padding: "10px 22px", borderRadius: 12, textDecoration: "none",
+                color: "var(--text-secondary)",
+                background: "rgba(255,255,255,0.8)",
+                border: "0.5px solid rgba(0,0,0,0.1)",
+              }}
             >
-              {c.linkedin} ↗
+              LinkedIn ↗
             </a>
           </div>
         </motion.div>
@@ -66,14 +70,10 @@ export default function Contact({ lang }: { lang: "en" | "it" }) {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex justify-between items-center mt-6 px-1"
+          style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 20, padding: "0 4px" }}
         >
-          <span className="text-xs" style={{ color: "var(--text-faint)" }}>
-            Alessandro Botti © 2025
-          </span>
-          <span className="text-xs" style={{ color: "var(--text-faint)" }}>
-            Management & Operations Consultant · Inema
-          </span>
+          <span style={{ fontSize: 11, color: "var(--text-faint)" }}>Alessandro Botti © 2025</span>
+          <span style={{ fontSize: 11, color: "var(--text-faint)" }}>Management & Operations Consultant · Inema</span>
         </motion.div>
       </div>
     </section>
