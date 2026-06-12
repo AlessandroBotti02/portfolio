@@ -36,7 +36,7 @@ export default function Nav({ lang, setLang }: { lang: "en" | "it"; setLang: (l:
     <motion.header
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
       style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, display: "flex", justifyContent: "center", padding: "14px 16px" }}
     >
       <div
@@ -45,22 +45,26 @@ export default function Nav({ lang, setLang }: { lang: "en" | "it"; setLang: (l:
           alignItems: "center",
           justifyContent: "space-between",
           width: "100%",
-          maxWidth: 768,
-          padding: "10px 20px",
+          maxWidth: 900,
+          padding: "8px 20px",
           borderRadius: 16,
-          background: scrolled ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.65)",
+          background: scrolled ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.65)",
           backdropFilter: "blur(20px) saturate(180%)",
           WebkitBackdropFilter: "blur(20px) saturate(180%)",
-          boxShadow: scrolled ? "0 4px 24px rgba(0,0,0,0.08), 0 0 0 0.5px rgba(0,0,0,0.08)" : "0 0 0 0.5px rgba(0,0,0,0.08)",
-          transition: "all 0.3s ease",
+          boxShadow: scrolled
+            ? "0 4px 24px rgba(0,0,0,0.07), 0 0 0 0.5px rgba(0,0,0,0.07)"
+            : "0 0 0 0.5px rgba(0,0,0,0.07)",
+          transition: "all 0.35s ease",
         }}
       >
         <a href="#" style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
           <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--teal)", display: "block" }} />
-          <span style={{ fontSize: 14, fontWeight: 500, color: "var(--text-primary)" }}>Alessandro Botti</span>
+          <span style={{ fontSize: 13, fontWeight: 500, color: "var(--text-primary)", letterSpacing: "-0.01em" }}>
+            Alessandro Botti
+          </span>
         </a>
 
-        <nav style={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <nav style={{ display: "flex", alignItems: "center", gap: 0 }}>
           {links.map((link) => {
             const isActive = active === link.href.slice(1);
             return (
@@ -69,37 +73,70 @@ export default function Nav({ lang, setLang }: { lang: "en" | "it"; setLang: (l:
                 href={link.href}
                 style={{
                   position: "relative",
-                  padding: "6px 12px",
-                  borderRadius: 10,
+                  padding: "6px 11px",
                   fontSize: 13,
                   fontWeight: isActive ? 500 : 400,
-                  color: isActive ? "var(--teal)" : "var(--text-muted)",
+                  color: isActive ? "var(--text-primary)" : "var(--text-muted)",
                   textDecoration: "none",
-                  background: isActive ? "var(--teal-bg)" : "transparent",
-                  transition: "all 0.2s ease",
+                  transition: "color 0.2s ease",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 3,
                 }}
               >
                 {link.label}
+                <motion.span
+                  style={{
+                    position: "absolute",
+                    bottom: 2,
+                    left: "50%",
+                    translateX: "-50%",
+                    height: 1.5,
+                    background: "var(--teal)",
+                    borderRadius: 2,
+                    originX: 0.5,
+                  }}
+                  animate={{ width: isActive ? "60%" : "0%" }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                />
               </a>
             );
           })}
         </nav>
 
-        <button
+        <div
           onClick={() => setLang(lang === "en" ? "it" : "en")}
           style={{
-            fontSize: 12,
-            fontWeight: 500,
-            padding: "5px 12px",
+            display: "flex",
+            alignItems: "center",
+            gap: 0,
+            fontSize: 11,
+            fontWeight: 600,
             borderRadius: 20,
-            border: "0.5px solid var(--teal-border)",
-            background: "var(--teal-bg)",
-            color: "var(--teal-dark)",
+            border: "0.5px solid var(--card-border)",
+            background: "rgba(255,255,255,0.8)",
+            overflow: "hidden",
             cursor: "pointer",
+            userSelect: "none",
           }}
         >
-          {lang === "en" ? "IT" : "EN"}
-        </button>
+          {(["en", "it"] as const).map((l) => (
+            <span
+              key={l}
+              style={{
+                padding: "5px 10px",
+                borderRadius: 20,
+                background: lang === l ? "var(--teal)" : "transparent",
+                color: lang === l ? "#fff" : "var(--text-muted)",
+                transition: "all 0.2s ease",
+                letterSpacing: "0.06em",
+              }}
+            >
+              {l.toUpperCase()}
+            </span>
+          ))}
+        </div>
       </div>
     </motion.header>
   );
