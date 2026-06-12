@@ -1,2 +1,3 @@
-// NEXT_PUBLIC_BASE_PATH is injected by GitHub's configure-pages action at build time
-export const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+// In dev (NODE_ENV=development): no prefix needed — Next.js serves public files from root
+// In prod (NODE_ENV=production): GitHub Pages serves from /portfolio/
+export const BASE = process.env.NODE_ENV === "production" ? "/portfolio" : "";
