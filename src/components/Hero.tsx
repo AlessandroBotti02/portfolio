@@ -114,16 +114,23 @@ export default function Hero({ lang }: { lang: "en" | "it" }) {
             </motion.div>
           </div>
 
-          {/* Avatar placeholder — replace with animated GIF/WebM */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.92 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:w-64 lg:h-64 w-40 h-40 rounded-3xl flex items-center justify-center flex-shrink-0 relative overflow-hidden"
-            style={{ background: "var(--teal-bg)", border: "0.5px solid var(--teal-border)" }}
+            className="lg:w-72 lg:h-72 w-48 h-48 rounded-3xl flex-shrink-0 relative overflow-hidden"
+            style={{
+              background: "rgba(255,255,255,0.6)",
+              border: "0.5px solid var(--border)",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.06)",
+            }}
           >
-            {/* Avatar GIF goes here: <img src="/avatar/avatar.gif" className="w-full h-full object-cover" /> */}
-            <span className="text-4xl font-medium" style={{ color: "var(--teal)" }}>AB</span>
+            <img
+              src="/avatar.gif"
+              alt="Alessandro Botti"
+              className="w-full h-full object-cover object-top"
+              style={{ mixBlendMode: "multiply" }}
+            />
           </motion.div>
 
         </div>
