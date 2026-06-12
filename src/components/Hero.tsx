@@ -2,134 +2,122 @@
 import { motion } from "framer-motion";
 
 const chips = [
-  { label: "Data Management", color: "teal" },
-  { label: "App Development", color: "teal" },
-  { label: "Process Simulation", color: "teal" },
-  { label: "Bologna, Italy", color: "gray" },
-  { label: "IT / EN", color: "gray" },
+  { label: "Data Management", teal: true },
+  { label: "App Development", teal: true },
+  { label: "Process Simulation", teal: true },
+  { label: "Bologna, Italy", teal: false },
 ];
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export default function Hero({ lang }: { lang: "en" | "it" }) {
-  const content = {
+  const t = {
     en: {
       eyebrow: "Management & Operations Consultant · Inema",
-      h1a: "Data consultant",
-      h1b: "& app builder.",
+      h1: ["Data consultant", "& app builder."],
       sub: "I help companies work better with their own data — building tools, planning systems, and AI integrations that actually get used.",
       cta: "View projects",
-      ctaSub: "Get in touch",
+      cta2: "Get in touch",
     },
     it: {
       eyebrow: "Management & Operations Consultant · Inema",
-      h1a: "Consulente dati",
-      h1b: "& sviluppatore app.",
+      h1: ["Consulente dati", "& sviluppatore app."],
       sub: "Aiuto le aziende a lavorare meglio con i propri dati — costruendo strumenti, sistemi di pianificazione e integrazioni AI che vengono davvero usati.",
       cta: "Vedi i progetti",
-      ctaSub: "Contattami",
+      cta2: "Contattami",
     },
-  };
-  const c = content[lang];
+  }[lang];
 
   return (
-    <section id="about" className="min-h-screen flex items-center pt-24 pb-16 px-4">
-      <div className="w-full max-w-3xl mx-auto">
-        <div className="flex flex-col lg:flex-row gap-8 items-start">
+    <section
+      id="about"
+      style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "100px 24px 60px" }}
+    >
+      <div style={{ width: "100%", maxWidth: 768, margin: "0 auto" }}>
+        <div style={{ display: "flex", flexDirection: "row", gap: 48, alignItems: "center", justifyContent: "space-between" }}>
 
-          <div className="flex-1">
+          {/* Text */}
+          <div style={{ flex: 1 }}>
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center gap-2 mb-5"
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease }}
+              style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}
             >
-              <span className="block w-5 h-px" style={{ background: "var(--teal)" }} />
-              <span className="text-xs font-medium tracking-widest uppercase" style={{ color: "var(--teal)" }}>
-                {c.eyebrow}
+              <span style={{ width: 22, height: 1.5, background: "var(--teal)", borderRadius: 2, display: "block" }} />
+              <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--teal)" }}>
+                {t.eyebrow}
               </span>
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="text-5xl sm:text-6xl font-medium leading-none tracking-tight mb-4"
-              style={{ color: "var(--text-primary)" }}
+              initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2, ease }}
+              style={{ fontSize: 52, fontWeight: 500, lineHeight: 1.05, letterSpacing: "-0.025em", marginBottom: 16 }}
             >
-              {c.h1a}
+              <span style={{ color: "var(--text-primary)" }}>{t.h1[0]}</span>
               <br />
-              <span style={{ color: "var(--text-faint)" }}>{c.h1b}</span>
+              <span style={{ color: "var(--text-faint)" }}>{t.h1[1]}</span>
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="text-base leading-relaxed mb-7 max-w-md"
-              style={{ color: "var(--text-secondary)" }}
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.32, ease }}
+              style={{ fontSize: 15, lineHeight: 1.7, color: "var(--text-secondary)", maxWidth: 400, marginBottom: 24 }}
             >
-              {c.sub}
+              {t.sub}
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-wrap gap-2 mb-8"
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.42, ease }}
+              style={{ display: "flex", flexWrap: "wrap", gap: 7, marginBottom: 28 }}
             >
-              {chips.map((chip) => (
-                <span
-                  key={chip.label}
-                  className="text-xs px-3 py-1.5 rounded-full"
-                  style={
-                    chip.color === "teal"
-                      ? { color: "var(--teal-dark)", background: "var(--teal-bg)", border: "0.5px solid var(--teal-border)" }
-                      : { color: "var(--text-muted)", background: "rgba(138,155,168,0.08)", border: "0.5px solid rgba(138,155,168,0.18)" }
-                  }
-                >
-                  {chip.label}
+              {chips.map((c) => (
+                <span key={c.label} style={{
+                  fontSize: 11, padding: "5px 12px", borderRadius: 20,
+                  color: c.teal ? "var(--teal-dark)" : "var(--text-muted)",
+                  background: c.teal ? "var(--teal-bg)" : "rgba(138,155,168,0.08)",
+                  border: `0.5px solid ${c.teal ? "var(--teal-border)" : "rgba(138,155,168,0.2)"}`,
+                }}>
+                  {c.label}
                 </span>
               ))}
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              className="flex items-center gap-3"
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.52, ease }}
+              style={{ display: "flex", gap: 10 }}
             >
-              <a
-                href="#projects"
-                className="text-sm font-medium px-5 py-2.5 rounded-xl transition-all no-underline"
-                style={{ background: "var(--teal)", color: "#fff" }}
-              >
-                {c.cta}
+              <a href="#projects" style={{
+                fontSize: 13, fontWeight: 500, padding: "10px 22px", borderRadius: 12,
+                background: "var(--teal)", color: "#fff", textDecoration: "none",
+              }}>
+                {t.cta}
               </a>
-              <a
-                href="#contact"
-                className="text-sm px-5 py-2.5 rounded-xl transition-all no-underline"
-                style={{ color: "var(--text-secondary)", background: "rgba(255,255,255,0.7)", border: "0.5px solid var(--border)" }}
-              >
-                {c.ctaSub}
+              <a href="#contact" style={{
+                fontSize: 13, padding: "10px 22px", borderRadius: 12, textDecoration: "none",
+                color: "var(--text-secondary)", background: "rgba(255,255,255,0.8)",
+                border: "0.5px solid rgba(0,0,0,0.1)",
+              }}>
+                {t.cta2}
               </a>
             </motion.div>
           </div>
 
+          {/* Avatar */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:w-72 lg:h-72 w-48 h-48 rounded-3xl flex-shrink-0 relative overflow-hidden"
+            initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.25, ease }}
             style={{
-              background: "rgba(255,255,255,0.6)",
-              border: "0.5px solid var(--border)",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.06)",
+              width: 240, height: 240, borderRadius: 28, flexShrink: 0,
+              overflow: "hidden", boxShadow: "var(--card-shadow)",
             }}
           >
             <img
               src="/avatar.gif"
               alt="Alessandro Botti"
-              className="w-full h-full object-cover object-top"
-              style={{ mixBlendMode: "multiply" }}
+              style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
             />
           </motion.div>
 

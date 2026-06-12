@@ -12,8 +12,8 @@ export default function Home() {
   const [lang, setLang] = useState<"en" | "it">("en");
 
   return (
-    <main className="min-h-screen">
-      <Nav lang={lang} />
+    <main style={{ minHeight: "100vh" }}>
+      <Nav lang={lang} setLang={setLang} />
       <Hero lang={lang} />
       <About lang={lang} />
       <Skills lang={lang} />

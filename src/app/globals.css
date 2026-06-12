@@ -1,40 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #EEF0F3;
-  --surface: rgba(255, 255, 255, 0.75);
-  --surface-hover: rgba(255, 255, 255, 0.92);
-  --border: rgba(0, 0, 0, 0.07);
+  --bg: #E8EAED;
+  --card: rgba(255, 255, 255, 0.88);
+  --card-border: rgba(0, 0, 0, 0.09);
+  --card-shadow: 0 2px 16px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.08);
   --text-primary: #0A1520;
-  --text-secondary: #5A7080;
-  --text-muted: #9AAAB5;
-  --text-faint: #C0CDD5;
+  --text-secondary: #4A6070;
+  --text-muted: #8A9BA8;
+  --text-faint: #B8C8D0;
   --teal: #00B4C8;
-  --teal-dark: #00849A;
-  --teal-bg: rgba(0, 180, 200, 0.08);
-  --teal-border: rgba(0, 180, 200, 0.25);
-  --navy: #253545;
+  --teal-dark: #007A8C;
+  --teal-bg: rgba(0, 180, 200, 0.09);
+  --teal-border: rgba(0, 180, 200, 0.28);
+  --navy: #1C2E3C;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-.glass {
-  background: var(--surface);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 0.5px solid var(--border);
-  border-radius: 16px;
+.card {
+  background: var(--card);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border-radius: 18px;
+  box-shadow: var(--card-shadow);
 }
 
-::selection { background: rgba(0,180,200,0.15); }
-::-webkit-scrollbar { width: 0px; }
+::selection { background: rgba(0,180,200,0.18); }
+::-webkit-scrollbar { width: 0; }
