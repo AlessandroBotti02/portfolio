@@ -1,5 +1,6 @@
 "use client";
 import { motion, useInView } from "framer-motion";
+import { BASE } from "@/lib/basePath";
 import { useRef } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -47,7 +48,7 @@ export default function Contact({ lang }: { lang: "en" | "it" }) {
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
               <img
-                src="/photo_real.jpg"
+                src={`${BASE}/photo_real.jpg`}
                 alt="Alessandro Botti"
                 onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; (e.target as HTMLImageElement).nextElementSibling?.setAttribute("style", "display:flex"); }}
                 style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}

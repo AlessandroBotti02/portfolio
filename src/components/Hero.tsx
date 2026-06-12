@@ -1,6 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { BASE } from "@/lib/basePath";
 
 const chips = [
   { label: "Data Management", teal: true },
@@ -138,7 +139,7 @@ export default function Hero({ lang }: { lang: "en" | "it" }) {
             transition={{ duration: 0.85, delay: 0.22, ease }}
           >
             <img
-              src="/avatar_v2.png"
+              src={`${BASE}/avatar_v2.png`}
               alt="Alessandro Botti"
               style={{ width: 300, height: 300, objectFit: "contain", display: "block" }}
             />

@@ -1,5 +1,6 @@
 "use client";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { BASE } from "@/lib/basePath";
 import { useRef, useState } from "react";
 import { projects } from "@/data/projects";
 
@@ -160,7 +161,7 @@ function AppIcon({ tool, globalIndex, lang, inView }: {
       >
         {tool.svgFile ? (
           <img
-            src={`/icons/${tool.svgFile}`}
+            src={`${BASE}/icons/${tool.svgFile}`}
             alt={tool.name}
             style={{ width: tool.iconSize ?? 32, height: tool.iconSize ?? 32, objectFit: "contain" }}
             draggable={false}
