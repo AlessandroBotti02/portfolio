@@ -155,6 +155,21 @@ export default function Skills({ lang }: { lang: "en" | "it" }) {
           ))}
 
           {/* Center circle */}
+          {inView && (
+            <motion.div
+              style={{
+                position: "absolute",
+                top: "50%", left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 60, height: 60,
+                borderRadius: "50%",
+                border: "1.5px solid var(--teal)",
+                pointerEvents: "none",
+              }}
+              animate={{ scale: [1, 1.9], opacity: [0.45, 0] }}
+              transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut", delay: 0.9 }}
+            />
+          )}
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
             animate={inView ? { opacity: 1, scale: 1 } : {}}

@@ -140,15 +140,15 @@ function AppIcon({ tool, globalIndex, lang, inView }: {
 
       {/* App icon */}
       <motion.div
-        initial={{ opacity: 0, y: -60, scale: 0.7 }}
+        initial={{ opacity: 0, y: -36, scale: 0.85 }}
         animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{
           type: "spring",
-          stiffness: 320,
-          damping: 22,
+          stiffness: 380,
+          damping: 30,
           delay: globalIndex * 0.045,
         }}
-        whileHover={{ scale: 1.12, y: -4, transition: { type: "spring", stiffness: 400, damping: 18 } }}
+        whileHover={{ scale: 1.08, y: -3, transition: { type: "spring", stiffness: 500, damping: 28, mass: 0.8 } }}
         style={{
           width: 64, height: 64,
           borderRadius: 16,

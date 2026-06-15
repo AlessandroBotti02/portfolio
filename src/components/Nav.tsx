@@ -98,7 +98,7 @@ export default function Nav({ lang, setLang }: { lang: "en" | "it"; setLang: (l:
                     originX: 0.5,
                   }}
                   animate={{ width: isActive ? "60%" : "0%" }}
-                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
                 />
               </a>
             );

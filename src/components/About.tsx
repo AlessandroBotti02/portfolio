@@ -54,7 +54,7 @@ function Counter({ target, suffix, inView }: { target: number; suffix: string; i
   useEffect(() => {
     if (!inView) return;
     const start = Date.now();
-    const duration = 1200;
+    const duration = 900;
     const tick = () => {
       const elapsed = Date.now() - start;
       const progress = Math.min(elapsed / duration, 1);

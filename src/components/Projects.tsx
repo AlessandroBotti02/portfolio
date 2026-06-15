@@ -26,7 +26,7 @@ function ProjectCard({ project, lang, delay, inView }: { project: typeof project
       <motion.div
         className="card"
         animate={{ y: hovered ? -5 : 0, boxShadow: hovered ? "var(--card-shadow-hover)" : "var(--card-shadow)" }}
-        transition={{ duration: 0.25, ease }}
+        transition={{ type: "spring", stiffness: 400, damping: 30 }}
         style={{ overflow: "hidden" }}
       >
         {/* Mockup area */}

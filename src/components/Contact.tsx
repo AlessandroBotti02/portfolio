@@ -4,6 +4,7 @@ import { BASE } from "@/lib/basePath";
 import { useRef } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
+const btnSpring = { type: "spring", stiffness: 500, damping: 28, mass: 0.8 } as const;
 
 export default function Contact({ lang }: { lang: "en" | "it" }) {
   const ref = useRef(null);
@@ -89,6 +90,7 @@ export default function Contact({ lang }: { lang: "en" | "it" }) {
               href="mailto:alessandro.botti@inema.bo.it"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              transition={btnSpring}
               style={{
                 fontSize: 13, fontWeight: 500, padding: "11px 26px", borderRadius: 12,
                 background: "var(--teal)", color: "#fff", textDecoration: "none",
@@ -103,6 +105,7 @@ export default function Contact({ lang }: { lang: "en" | "it" }) {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              transition={btnSpring}
               style={{
                 fontSize: 13, padding: "11px 26px", borderRadius: 12, textDecoration: "none",
                 color: "var(--text-secondary)",

@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { BASE } from "@/lib/basePath";
 
@@ -11,6 +11,33 @@ const chips = [
 ];
 
 const ease = [0.22, 1, 0.36, 1] as const;
+const arrowSpring = { type: "spring", stiffness: 500, damping: 30 } as const;
+
+function CtaPrimary({ label, href }: { label: string; href: string }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <motion.a
+      href={href}
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={arrowSpring}
+      style={{
+        fontSize: 13, fontWeight: 500, padding: "11px 24px", borderRadius: 12,
+        background: "var(--teal)", color: "#fff", textDecoration: "none",
+        display: "flex", alignItems: "center", gap: 6,
+      }}
+    >
+      {label}
+      <motion.span
+        animate={{ x: hovered ? 4 : 0 }}
+        transition={arrowSpring}
+        style={{ display: "inline-block" }}
+      >→</motion.span>
+    </motion.a>
+  );
+}
 
 export default function Hero({ lang }: { lang: "en" | "it" }) {
   const heroRef = useRef<HTMLElement>(null);
@@ -78,49 +105,36 @@ export default function Hero({ lang }: { lang: "en" | "it" }) {
               {t.sub}
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4, ease }}
-              style={{ display: "flex", flexWrap: "wrap", gap: 7, marginBottom: 32 }}
-            >
-              {chips.map((c) => (
-                <span key={c.label} style={{
-                  fontSize: 11, padding: "5px 12px", borderRadius: 20,
-                  color: c.teal ? "var(--teal-dark)" : "var(--text-muted)",
-                  background: c.teal ? "var(--teal-bg)" : "rgba(138,155,168,0.08)",
-                  border: `0.5px solid ${c.teal ? "var(--teal-border)" : "rgba(138,155,168,0.2)"}`,
-                }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginBottom: 32 }}>
+              {chips.map((c, i) => (
+                <motion.span
+                  key={c.label}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: 0.55 + i * 0.07, ease }}
+                  style={{
+                    fontSize: 11, padding: "5px 12px", borderRadius: 20,
+                    color: c.teal ? "var(--teal-dark)" : "var(--text-muted)",
+                    background: c.teal ? "var(--teal-bg)" : "rgba(138,155,168,0.08)",
+                    border: `0.5px solid ${c.teal ? "var(--teal-border)" : "rgba(138,155,168,0.2)"}`,
+                  }}
+                >
                   {c.label}
-                </span>
+                </motion.span>
               ))}
-            </motion.div>
+            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5, ease }}
               style={{ display: "flex", gap: 10 }}
             >
-              <motion.a
-                href="#projects"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                style={{
-                  fontSize: 13, fontWeight: 500, padding: "11px 24px", borderRadius: 12,
-                  background: "var(--teal)", color: "#fff", textDecoration: "none",
-                  display: "flex", alignItems: "center", gap: 6,
-                }}
-              >
-                {t.cta}
-                <motion.span
-                  style={{ display: "inline-block" }}
-                  whileHover={{ x: 3 }}
-                  transition={{ duration: 0.15 }}
-                >→</motion.span>
-              </motion.a>
+              <CtaPrimary label={t.cta} href="#projects" />
               <motion.a
                 href="#contact"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                transition={arrowSpring}
                 style={{
                   fontSize: 13, padding: "11px 24px", borderRadius: 12, textDecoration: "none",
                   color: "var(--text-secondary)", background: "rgba(255,255,255,0.85)",
